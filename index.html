@@ -1,0 +1,799 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Explore Sri Lanka - Complete Travel Management System</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f8f9fa;
+            color: #333;
+        }
+
+        /* Header Styles */
+        .header {
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            color: white;
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .logo h1 {
+            font-size: 1.8rem;
+            cursor: pointer;
+        }
+
+        .logo p {
+            font-size: 0.8rem;
+            opacity: 0.9;
+        }
+
+        .nav-menu {
+            display: flex;
+            gap: 25px;
+            list-style: none;
+        }
+
+        .nav-menu a {
+            color: white;
+            text-decoration: none;
+            transition: opacity 0.3s;
+        }
+
+        .nav-menu a:hover {
+            opacity: 0.8;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('https://images.unsplash.com/photo-1587574293340-e0011c4e8ecf?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');
+            background-size: cover;
+            background-position: center;
+            height: 500px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+        }
+
+        .hero-content h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .hero-content p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+        }
+
+        .btn {
+            padding: 12px 30px;
+            background: #ff6b6b;
+            color: white;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: transform 0.3s;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+        }
+
+        /* Destinations Section */
+        .section {
+            padding: 60px 0;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 40px;
+            color: #1e3c72;
+        }
+
+        .destinations-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .destination-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s;
+        }
+
+        .destination-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .destination-card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .destination-info {
+            padding: 20px;
+        }
+
+        .destination-info h3 {
+            margin-bottom: 10px;
+            color: #1e3c72;
+        }
+
+        .destination-info p {
+            color: #666;
+            margin-bottom: 15px;
+        }
+
+        .price {
+            font-size: 1.2rem;
+            color: #ff6b6b;
+            font-weight: bold;
+        }
+
+        /* Booking Form */
+        .booking-section {
+            background: #f0f2f5;
+        }
+
+        .booking-form {
+            max-width: 600px;
+            margin: 0 auto;
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 1rem;
+        }
+
+        /* Packages Section */
+        .packages-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+        }
+
+        .package-card {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s;
+        }
+
+        .package-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .package-card h3 {
+            color: #1e3c72;
+            margin-bottom: 15px;
+        }
+
+        .package-price {
+            font-size: 2rem;
+            color: #ff6b6b;
+            margin: 20px 0;
+        }
+
+        .package-features {
+            list-style: none;
+            margin: 20px 0;
+        }
+
+        .package-features li {
+            padding: 8px 0;
+            color: #666;
+        }
+
+        /* Testimonials */
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .testimonial-card {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .testimonial-card img {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            margin-bottom: 15px;
+        }
+
+        .rating {
+            color: #ffc107;
+            margin: 10px 0;
+        }
+
+        /* Footer */
+        .footer {
+            background: #1e3c72;
+            color: white;
+            padding: 40px 0 20px;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+
+        .footer-section h3 {
+            margin-bottom: 20px;
+        }
+
+        .footer-section ul {
+            list-style: none;
+        }
+
+        .footer-section ul li {
+            margin-bottom: 10px;
+        }
+
+        .footer-section a {
+            color: white;
+            text-decoration: none;
+        }
+
+        .social-icons {
+            display: flex;
+            gap: 15px;
+        }
+
+        .social-icons a {
+            color: white;
+            font-size: 1.5rem;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+        }
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            z-index: 1001;
+        }
+
+        .modal-content {
+            background: white;
+            max-width: 500px;
+            margin: 50px auto;
+            padding: 30px;
+            border-radius: 15px;
+            position: relative;
+        }
+
+        .close {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        /* Alert */
+        .alert {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 15px 20px;
+            border-radius: 8px;
+            display: none;
+            z-index: 1002;
+            animation: slideIn 0.3s ease;
+        }
+
+        .alert-success {
+            background: #4caf50;
+            color: white;
+        }
+
+        .alert-error {
+            background: #f44336;
+            color: white;
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+            }
+            
+            .nav-menu {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            
+            .hero-content h1 {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <h1>🇱🇰 Explore Sri Lanka</h1>
+                    <p>Your Gateway to Paradise Island</p>
+                </div>
+                <ul class="nav-menu">
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#destinations">Destinations</a></li>
+                    <li><a href="#packages">Packages</a></li>
+                    <li><a href="#booking">Book Now</a></li>
+                    <li><a href="#testimonials">Reviews</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="hero-content">
+            <h1>Discover the Pearl of the Indian Ocean</h1>
+            <p>Experience the rich culture, stunning landscapes, and warm hospitality of Sri Lanka</p>
+            <button class="btn" onclick="scrollToBooking()">Start Your Journey</button>
+        </div>
+    </section>
+
+    <!-- Destinations Section -->
+    <section id="destinations" class="section">
+        <div class="container">
+            <h2 class="section-title">Popular Destinations</h2>
+            <div class="destinations-grid" id="destinationsGrid"></div>
+        </div>
+    </section>
+
+    <!-- Packages Section -->
+    <section id="packages" class="section">
+        <div class="container">
+            <h2 class="section-title">Travel Packages</h2>
+            <div class="packages-grid" id="packagesGrid"></div>
+        </div>
+    </section>
+
+    <!-- Booking Section -->
+    <section id="booking" class="section booking-section">
+        <div class="container">
+            <h2 class="section-title">Book Your Sri Lankan Adventure</h2>
+            <div class="booking-form">
+                <form id="bookingForm">
+                    <div class="form-group">
+                        <label>Full Name</label>
+                        <input type="text" id="name" required placeholder="Enter your full name">
+                    </div>
+                    <div class="form-group">
+                        <label>Email Address</label>
+                        <input type="email" id="email" required placeholder="Enter your email">
+                    </div>
+                    <div class="form-group">
+                        <label>Phone Number</label>
+                        <input type="tel" id="phone" required placeholder="+94...">
+                    </div>
+                    <div class="form-group">
+                        <label>Select Package</label>
+                        <select id="package">
+                            <option value="">Choose a package</option>
+                            <option value="cultural">Cultural Triangle Explorer - $599</option>
+                            <option value="beach">Beach Paradise Retreat - $799</option>
+                            <option value="adventure">Wild Adventure Safari - $899</option>
+                            <option value="premium">Premium Island Tour - $1299</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Travel Date</label>
+                        <input type="date" id="travelDate" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Number of Travelers</label>
+                        <input type="number" id="travelers" min="1" max="20" required value="1">
+                    </div>
+                    <div class="form-group">
+                        <label>Special Requests</label>
+                        <textarea id="requests" rows="3" placeholder="Any special requirements?"></textarea>
+                    </div>
+                    <button type="submit" class="btn" style="width: 100%;">Book Now</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section id="testimonials" class="section">
+        <div class="container">
+            <h2 class="section-title">What Our Travelers Say</h2>
+            <div class="testimonials-grid" id="testimonialsGrid"></div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Explore Sri Lanka</h3>
+                    <p>Your trusted partner for unforgettable experiences in Sri Lanka. We offer customized tours and travel solutions for foreign visitors.</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="#home">Home</a></li>
+                        <li><a href="#destinations">Destinations</a></li>
+                        <li><a href="#packages">Packages</a></li>
+                        <li><a href="#booking">Book Now</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Contact Info</h3>
+                    <ul>
+                        <li><i class="fas fa-phone"></i> +94 11 234 5678</li>
+                        <li><i class="fas fa-envelope"></i> info@exploresrilanka.com</li>
+                        <li><i class="fas fa-map-marker-alt"></i> Colombo, Sri Lanka</li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Follow Us</h3>
+                    <div class="social-icons">
+                        <a href="#"><i class="fab fa-facebook"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 Explore Sri Lanka. All rights reserved. Designed for foreign travelers.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Modal -->
+    <div id="modal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <h2 style="color: #1e3c72; margin-bottom: 20px;">Booking Confirmed! 🎉</h2>
+            <p>Thank you for choosing Explore Sri Lanka! Our team will contact you within 24 hours to confirm your booking.</p>
+            <p style="margin-top: 20px;">Check your email for the booking details.</p>
+            <button class="btn" onclick="closeModal()" style="margin-top: 20px;">Close</button>
+        </div>
+    </div>
+
+    <!-- Alert -->
+    <div id="alert" class="alert"></div>
+
+    <script>
+        // Destinations Data
+        const destinations = [
+            {
+                name: "Sigiriya Rock Fortress",
+                image: "https://images.unsplash.com/photo-1587574293340-e0011c4e8ecf?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80",
+                description: "Ancient rock fortress and UNESCO World Heritage site",
+                price: "$45",
+                location: "Central Province"
+            },
+            {
+                name: "Kandy Temple of Tooth",
+                image: "https://images.unsplash.com/photo-1584225064785-c62a8b43d148?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80",
+                description: "Sacred Buddhist temple housing the tooth relic of Buddha",
+                price: "$15",
+                location: "Kandy"
+            },
+            {
+                name: "Ella Gap View",
+                image: "https://images.unsplash.com/photo-1581539250439-c96689b516dd?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80",
+                description: "Breathtaking views of Ella Gap and surrounding mountains",
+                price: "$25",
+                location: "Ella"
+            },
+            {
+                name: "Galle Dutch Fort",
+                image: "https://images.unsplash.com/photo-1557992260-ec58bee38ebe?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80",
+                description: "Historic Dutch colonial fort by the ocean",
+                price: "$10",
+                location: "Galle"
+            },
+            {
+                name: "Yala National Park",
+                image: "https://images.unsplash.com/photo-1547471080-7cc2caa01a7e?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80",
+                description: "Famous for leopard sightings and wildlife safaris",
+                price: "$60",
+                location: "Southern Province"
+            },
+            {
+                name: "Nuwara Eliya",
+                image: "https://images.unsplash.com/photo-1573883431305-5e5b2e1f6eb0?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80",
+                description: "Little England - Tea plantations and cool climate",
+                price: "$35",
+                location: "Central Highlands"
+            }
+        ];
+
+        // Packages Data
+        const packages = [
+            {
+                name: "Cultural Triangle Explorer",
+                duration: "5 Days / 4 Nights",
+                price: "$599",
+                features: ["Sigiriya Rock", "Ancient Cities", "Temple Visits", "Cultural Shows"]
+            },
+            {
+                name: "Beach Paradise Retreat",
+                duration: "7 Days / 6 Nights",
+                price: "$799",
+                features: ["Bentota Beach", "Whale Watching", "Water Sports", "Ayurveda Spa"]
+            },
+            {
+                name: "Wild Adventure Safari",
+                duration: "6 Days / 5 Nights",
+                price: "$899",
+                features: ["Yala Safari", "Elephant Orphanage", "Jungle Trekking", "Camping"]
+            },
+            {
+                name: "Premium Island Tour",
+                duration: "10 Days / 9 Nights",
+                price: "$1299",
+                features: ["All Destinations", "Luxury Hotels", "Private Guide", "Custom Itinerary"]
+            }
+        ];
+
+        // Testimonials Data
+        const testimonials = [
+            {
+                name: "Sarah Johnson",
+                country: "USA",
+                image: "https://randomuser.me/api/portraits/women/1.jpg",
+                text: "Amazing experience! Sri Lanka exceeded all my expectations. The team was professional and caring.",
+                rating: 5
+            },
+            {
+                name: "Michael Chen",
+                country: "Singapore",
+                image: "https://randomuser.me/api/portraits/men/2.jpg",
+                text: "Perfectly organized tour. Every detail was taken care of. Will definitely come back!",
+                rating: 5
+            },
+            {
+                name: "Emma Watson",
+                country: "UK",
+                image: "https://randomuser.me/api/portraits/women/3.jpg",
+                text: "The wildlife safari was incredible! Saw so many elephants and even a leopard.",
+                rating: 5
+            }
+        ];
+
+        // Load Destinations
+        function loadDestinations() {
+            const grid = document.getElementById('destinationsGrid');
+            grid.innerHTML = destinations.map(dest => `
+                <div class="destination-card">
+                    <img src="${dest.image}" alt="${dest.name}">
+                    <div class="destination-info">
+                        <h3>${dest.name}</h3>
+                        <p>${dest.description}</p>
+                        <p><strong>Location:</strong> ${dest.location}</p>
+                        <div class="price">Entry: ${dest.price}</div>
+                        <button class="btn" style="margin-top: 10px;" onclick="scrollToBooking()">Book Tour</button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Load Packages
+        function loadPackages() {
+            const grid = document.getElementById('packagesGrid');
+            grid.innerHTML = packages.map(pkg => `
+                <div class="package-card">
+                    <h3>${pkg.name}</h3>
+                    <p>${pkg.duration}</p>
+                    <div class="package-price">${pkg.price}</div>
+                    <ul class="package-features">
+                        ${pkg.features.map(f => `<li><i class="fas fa-check" style="color: #4caf50;"></i> ${f}</li>`).join('')}
+                    </ul>
+                    <button class="btn" onclick="selectPackage('${pkg.name}')">Book This Package</button>
+                </div>
+            `).join('');
+        }
+
+        // Load Testimonials
+        function loadTestimonials() {
+            const grid = document.getElementById('testimonialsGrid');
+            grid.innerHTML = testimonials.map(test => `
+                <div class="testimonial-card">
+                    <img src="${test.image}" alt="${test.name}">
+                    <h3>${test.name}</h3>
+                    <p>${test.country}</p>
+                    <div class="rating">
+                        ${'★'.repeat(test.rating)}${'☆'.repeat(5-test.rating)}
+                    </div>
+                    <p>"${test.text}"</p>
+                </div>
+            `).join('');
+        }
+
+        // Select Package
+        function selectPackage(packageName) {
+            const packageSelect = document.getElementById('package');
+            const option = Array.from(packageSelect.options).find(opt => opt.text.includes(packageName));
+            if (option) {
+                packageSelect.value = option.value;
+                scrollToBooking();
+            }
+        }
+
+        // Scroll to Booking
+        function scrollToBooking() {
+            document.getElementById('booking').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // Show Alert
+        function showAlert(message, type) {
+            const alert = document.getElementById('alert');
+            alert.className = `alert alert-${type}`;
+            alert.textContent = message;
+            alert.style.display = 'block';
+            setTimeout(() => {
+                alert.style.display = 'none';
+            }, 3000);
+        }
+
+        // Open Modal
+        function openModal() {
+            document.getElementById('modal').style.display = 'block';
+        }
+
+        // Close Modal
+        function closeModal() {
+            document.getElementById('modal').style.display = 'none';
+        }
+
+        // Handle Booking Form Submission
+        document.getElementById('bookingForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const phone = document.getElementById('phone').value;
+            const packageSelect = document.getElementById('package');
+            const travelDate = document.getElementById('travelDate').value;
+            const travelers = document.getElementById('travelers').value;
+            
+            if (!name || !email || !phone || !packageSelect.value || !travelDate) {
+                showAlert('Please fill in all required fields!', 'error');
+                return;
+            }
+            
+            // Save booking to localStorage
+            const booking = {
+                id: Date.now(),
+                name,
+                email,
+                phone,
+                package: packageSelect.value,
+                travelDate,
+                travelers,
+                requests: document.getElementById('requests').value,
+                bookingDate: new Date().toISOString()
+            };
+            
+            let bookings = JSON.parse(localStorage.getItem('bookings') || '[]');
+            bookings.push(booking);
+            localStorage.setItem('bookings', JSON.stringify(bookings));
+            
+            // Show success message
+            showAlert('Booking submitted successfully! Check your email for confirmation.', 'success');
+            
+            // Open modal
+            openModal();
+            
+            // Reset form
+            this.reset();
+        });
+
+        // Initialize Page
+        function init() {
+            loadDestinations();
+            loadPackages();
+            loadTestimonials();
+            
+            // Set min date for travel date picker
+            const today = new Date().toISOString().split('T')[0];
+            document.getElementById('travelDate').min = today;
+        }
+        
+        // Close modal when clicking outside
+        window.onclick = function(event) {
+            const modal = document.getElementById('modal');
+            if (event.target === modal) {
+                closeModal();
+            }
+        }
+        
+        // Initialize on page load
+        init();
+    </script>
+</body>
+</html>
